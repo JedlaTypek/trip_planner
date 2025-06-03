@@ -20,10 +20,10 @@ ENV/
 .env.*
 
 # Django specific
-db.sqlite3
-*.sqlite3
-media/
-staticfiles/
+# db.sqlite3
+# *.sqlite3
+# media/
+# staticfiles/
 *.log
 *.pot
 *.pyc
