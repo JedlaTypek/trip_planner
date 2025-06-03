@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+    {% for place in places %}
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            {% include "blocks/place_card.html" with place=place %}
+        </div>
+    {% empty %}
+            <p>Žádná místa k zobrazení.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

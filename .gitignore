@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pkl
+*.log
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+.Python
+
+# Environment variables
+.env
+.env.*
+
+# Django specific
+db.sqlite3
+*.sqlite3
+media/
+staticfiles/
+*.log
+*.pot
+*.pyc
+local_settings.py
+
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Test and coverage
+.coverage
+.tox/
+.nox/
+*.cover
+coverage.xml
+htmlcov/
+.pytest_cache/
+pytest-debug.log

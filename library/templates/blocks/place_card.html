@@ -1,0 +1,29 @@
+<div class="card h-100 shadow-sm">
+    {% if place.featured_image %}
+        <img src="{{ place.featured_image.url }}" class="card-img-top" alt="{{ place.name }}">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">{{ place.name }}</h5>
+
+        {% if place.tags.all %}
+            <p class="mb-2">
+                {% for tag in place.tags.all %}
+                     <a href="{% url 'place_list_by_tag' tag.slug %}" class="badge bg-secondary text-decoration-none">
+                        {{ tag.name }}
+                      </a>
+                {% endfor %}
+            </p>
+        {% endif %}
+
+        <p class="card-text">{{ place.description|truncatewords:25 }}</p>
+
+        <ul class="list-unstyled small">
+            <li><strong>Otevírací doba:</strong> {{ place.opening_hours }}</li>
+            <li><strong>Vstupné:</strong> {{ place.entry_fee }}</li>
+        </ul>
+
+        {% if place.google_maps_url %}
+            <a href="{{ place.google_maps_url }}" class="btn btn-sm btn-outline-primary mt-2" target="_blank">Zobrazit na mapě</a>
+        {% endif %}
+    </div>
+</div>
