@@ -109,3 +109,32 @@ class EntryFee(models.Model):
 
     def __str__(self):
         return f"{self.category} – {self.price}"
+
+
+class PlaceImage(models.Model):
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.CASCADE,
+        related_name='gallery',
+        verbose_name='Místo',
+        help_text='Místo, ke kterému tento obrázek patří'
+    )
+    image = models.ImageField(
+        upload_to='places/gallery/',
+        verbose_name='Obrázek',
+        help_text='Přidej další obrázek místa'
+    )
+    caption = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name='Popisek',
+        help_text='Volitelný popisek k obrázku'
+    )
+
+    class Meta:
+        verbose_name = 'Obrázek místa'
+        verbose_name_plural = 'Galerie míst'
+
+    def __str__(self):
+        return f"{self.place.name} – Obrázek {self.id}"

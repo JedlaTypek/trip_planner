@@ -9,3 +9,31 @@ body{
 main{
     flex-grow: 1;
 }
+
+.hero {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px; /* nebo jakákoli výška, kterou chceš */
+    overflow: hidden; /* důležité pro oříznutí ::before */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Čím vyšší číslo, tím tmavší */
+    z-index: 1;
+}
+
+.hero h1 {
+    position: relative;
+    z-index: 2;
+}

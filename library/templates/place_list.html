@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="row">
+    <a href="#" class="btn btn-outline-success mt-3">Přidat místo</a>
+    <div class="row mt-5">
     {% for place in places %}
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             {% include "blocks/place_card.html" with place=place %}

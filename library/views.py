@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from library.models import Place, Tag
+from library.models import Place, Tag, EntryFee
 
 
 # Create your views here.
@@ -21,3 +21,14 @@ def place_list_by_tag(request, slug):
         'places': places
     }
     return render(request, 'place_list.html', context=context)
+
+
+def place_detail(request, slug):
+    place = get_object_or_404(Place, slug=slug)
+    context = {
+        'page_title': place.name,
+        'hero_image': place.featured_image,
+        'place': place,
+        'entry_fees': EntryFee.objects.filter(place=place)
+    }
+    return render(request, 'place_detail.html', context=context)

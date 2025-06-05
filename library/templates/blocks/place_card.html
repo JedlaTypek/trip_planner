@@ -3,7 +3,7 @@
         <img src="{{ place.featured_image.url }}" class="card-img-top" alt="{{ place.name }}">
     {% endif %}
     <div class="card-body">
-        <h5 class="card-title">{{ place.name }}</h5>
+        <a href="{% url 'place_detail' place.slug %}"><h5 class="card-title">{{ place.name }}</h5></a>
 
         {% if place.tags.all %}
             <p class="mb-2">

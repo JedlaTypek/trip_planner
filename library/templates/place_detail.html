@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% if place.tags.all %}
+        <p class="mb-2">
+            {% for tag in place.tags.all %}
+                 <a href="{% url 'place_list_by_tag' tag.slug %}" class="badge bg-secondary text-decoration-none">
+                    {{ tag.name }}
+                  </a>
+            {% endfor %}
+        </p>
+    {% endif %}
+
+    {% if place.description %}
+        <h5>Popis místa</h5>
+        <p>{{ place.description }}</p>
+    {% endif %}
+    {% if place.opening_hours %}
+        <h5>Otevírací doba</h5>
+        <p> {{ place.opening_hours }}</p>
+    {% endif %}
+    {% if place.entry_fees.all %}
+        <h5>Vstupné</h5>
+        <table class="table table-striped">
+        <thead class="table-dark">
+        <td>Kategorie</td><td>Cena</td>
+        </thead>
+        <tbody>
+        {% for fee in entry_fees.all %}
+            <tr>
+                <td>{{ fee.category }}</td>
+                <td>{{ fee.price }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    {% endif %}
+    {% if place.google_maps_url %}
+        <a href="{{ place.google_maps_url }}" target="_blank" class="btn btn-outline-success mt-3">
+            Zobrazit na mapě
+        </a>
+    {% endif %}
+    {% if place.gallery.all %}
+        <div class="row mt-4">
+            {% for image in place.gallery.all %}
+            <div class="col-6 col-md-4 mb-3">
+                <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="img-fluid rounded">
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}
