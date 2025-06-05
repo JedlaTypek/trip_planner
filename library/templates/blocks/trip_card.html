@@ -1,0 +1,23 @@
+<div class="card h-100 shadow-sm">
+    <div class="card-body">
+        <a href="{% url 'trip_detail' trip.slug %}"><h3 class="card-title text-dark">{{ trip.name }}</h3></a>
+        <p class="small">{{ trip.date }}</p>
+        <h5>Plánovaná místa k navštívení</h5>
+
+            {% if trip.places.all %}
+                <ul>
+                {% for place in trip.places.all %}
+                    <li>{{ place.name }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>Žádná vybraná místa</p>
+            {% endif %}
+
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="{% url 'trip_detail' trip.slug %}" class="mr-2"><button type="button" class="btn btn-primary">Detail</button></a>
+            <a href="{% url 'trip_delete' trip.slug %}" ><button type="button" class="btn btn-outline-danger">Smazat</button></a>
+            <a href="{% url 'trip_edit' trip.slug %}" ><button type="button" class="btn btn-outline-warning">Upravit</button></a>
+        </div>
+    </div>
+</div>

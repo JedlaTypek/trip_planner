@@ -37,3 +37,20 @@ main{
     position: relative;
     z-index: 2;
 }
+
+.place-card-img {
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem; /* mezera mezi poli */
+  align-items: center;
+}
+
+.form-row .entryfee-category,
+.form-row .entryfee-price {
+    flex: 1; /* aby se roztáhly rovnoměrně */
+}

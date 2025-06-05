@@ -5,7 +5,7 @@
     {% if place.tags.all %}
         <p class="mb-2">
             {% for tag in place.tags.all %}
-                 <a href="{% url 'place_list_by_tag' tag.slug %}" class="badge bg-secondary text-decoration-none">
+                 <a href="{% url 'place_list_by_tag' tag.slug %}" class="badge bg-primary text-decoration-none text-light">
                     {{ tag.name }}
                   </a>
             {% endfor %}
@@ -13,15 +13,15 @@
     {% endif %}
 
     {% if place.description %}
-        <h5>Popis místa</h5>
+        <h3>Popis místa</h3>
         <p>{{ place.description }}</p>
     {% endif %}
     {% if place.opening_hours %}
-        <h5>Otevírací doba</h5>
+        <h3>Otevírací doba</h3>
         <p> {{ place.opening_hours }}</p>
     {% endif %}
     {% if place.entry_fees.all %}
-        <h5>Vstupné</h5>
+        <h3>Vstupné</h3>
         <table class="table table-striped">
         <thead class="table-dark">
         <td>Kategorie</td><td>Cena</td>

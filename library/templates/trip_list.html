@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'trip_add' %}" class="btn btn-outline-success mt-3">Přidat výlet</a>
+    <div class="col mt-5">
+    {% for trip in trips %}
+        {% include "blocks/trip_card.html" with trip=trip %}
+    {% empty %}
+            <p>Žádná místa k zobrazení.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

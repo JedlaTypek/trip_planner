@@ -18,11 +18,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+
+from library import views
 from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('library/', include('library.urls'))
+    path('', include('library.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', views.register, name='register')
 ]
 
 if settings.DEBUG:

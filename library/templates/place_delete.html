@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p>Opravdu chcete smazat místo <strong>{{ place.name }}</strong>?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Ano, smazat</button>
+  <a href="{{ next }}" class="btn btn-secondary">Zpět</a>
+</form>
+
+{% endblock %}

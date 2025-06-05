@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
 
@@ -34,14 +35,15 @@ class Place(models.Model):
     name = models.CharField(
         max_length=200,
         verbose_name="Název místa",
-        help_text="Zadejte název zajímavého místa (např. St. Stephen's Green)"
+        help_text="Zadejte název zajímavého místa (např. St. Stephen's Green)",
+        unique=True
     )
     slug = models.SlugField(
         max_length=200,
-        unique=True,
-        blank=True,
         verbose_name="Slug",
-        help_text="Jedná se o URL verzi názvu místa. Ponechte prázdné pro automatické vygenerování."
+        help_text="Jedná se o URL verzi názvu místa. Ponechte prázdné pro automatické vygenerování.",
+        unique = True,
+        blank = True,
     )
     description = models.TextField(
         verbose_name="Popis",
@@ -52,9 +54,7 @@ class Place(models.Model):
     featured_image = models.ImageField(
         upload_to='places/featured/',
         verbose_name="Hlavní obrázek",
-        help_text="Nahraj reprezentativní obrázek místa",
-        null=True,
-        blank=True
+        help_text="Nahraj reprezentativní obrázek místa"
     )
     google_maps_url = models.URLField(
         verbose_name="Odkaz na Google Mapy",
@@ -65,15 +65,15 @@ class Place(models.Model):
     )
     tags = models.ManyToManyField(
         'Tag',
-        blank=True,
         verbose_name="Štítky",
-        help_text="Vyber odpovídající štítky pro místo (např. park, galerie)"
+        help_text="Vyber odpovídající štítky pro místo (např. park, galerie)",
+        blank = True
     )
     opening_hours = models.TextField(
         verbose_name="Otevírací doba",
         help_text="Uveď běžné otevírací hodiny místa",
-        null=True,
-        blank=True
+        blank=True,
+        null=True
     )
 
     class Meta:
@@ -116,20 +116,9 @@ class PlaceImage(models.Model):
         Place,
         on_delete=models.CASCADE,
         related_name='gallery',
-        verbose_name='Místo',
-        help_text='Místo, ke kterému tento obrázek patří'
     )
     image = models.ImageField(
         upload_to='places/gallery/',
-        verbose_name='Obrázek',
-        help_text='Přidej další obrázek místa'
-    )
-    caption = models.CharField(
-        max_length=200,
-        blank=True,
-        null=True,
-        verbose_name='Popisek',
-        help_text='Volitelný popisek k obrázku'
     )
 
     class Meta:
@@ -138,3 +127,29 @@ class PlaceImage(models.Model):
 
     def __str__(self):
         return f"{self.place.name} – Obrázek {self.id}"
+
+
+class Trip(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trips')
+    name = models.CharField(max_length=200, verbose_name="Název výletu", unique=True)
+    slug = models.SlugField(
+        max_length=200,
+        verbose_name="Slug",
+        unique=True,
+        blank=True,
+    )
+    date = models.DateField(verbose_name="Datum výletu")
+    places = models.ManyToManyField('Place', related_name='trips', verbose_name="Navštívená místa", blank=True)
+
+    class Meta:
+        ordering = ['-date']
+        verbose_name = 'Výlet'
+        verbose_name_plural = 'Výlety'
+
+    def __str__(self):
+        return f"{self.name} ({self.date})"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)

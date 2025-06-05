@@ -1,27 +1,55 @@
 {% load static %}
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand text-light" href="{% url 'index' %}"><img class="logo" src="{% static 'img/logo.png' %}" alt="Školní knihovna"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavId">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'index' %}">Výpis míst <span class="sr-only">(current)</span></a>
-            </li>
-          <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Štítky
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    {% for tag in all_tags %}
-                        <a class="dropdown-item" href="{% url 'place_list_by_tag' tag.slug %}">{{ tag.name }}</a>
-                    {% endfor %}
-                </div>
-            </li>
-        </ul>
-    </div>
+  <a class="navbar-brand text-light" href="{% url 'index' %}">
+    <img class="logo" src="{% static 'img/logo.png' %}" alt="Školní knihovna">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavId">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="collapsibleNavId">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'places' %}">Výpis míst<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Štítky
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          {% for tag in all_tags %}
+            <a class="dropdown-item" href="{% url 'place_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+          {% endfor %}
+        </div>
+      </li>
+    {% if user.is_authenticated %}
+      <li class="nav-link">
+          <a class="nav-link" href="{% url 'trips' %}">Výpis výletů<span class="sr-only">(current)</span></a>
+      </li>
+    {% endif %}
+    </ul>
+
+    <!-- AUTH část doprava -->
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <span class="nav-link text-light">Přihlášen: {{ user.username }}</span>
+        </li>
+        <li class="nav-item">
+          <form method="post" action="{% url 'logout' %}" class="nav-link">
+              {% csrf_token %}
+              <button type="submit" class="nav-link btn btn-link text-light p-0 m-0" style="border: none;">Odhlásit se</button>
+            </form>
+        </li>
+      {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Přihlásit se</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
 </nav>
+
 {% if hero_image %}
 <header class="p-5 text-center bg-light hero" style="background-image: url('{{ hero_image.url }}')">
 {% else %}
