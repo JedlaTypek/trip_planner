@@ -16,8 +16,8 @@
 
         <div class="btn-group" role="group" aria-label="Basic example">
             <a href="{% url 'trip_detail' trip.slug %}" class="mr-2"><button type="button" class="btn btn-primary">Detail</button></a>
-            <a href="{% url 'trip_delete' trip.slug %}" ><button type="button" class="btn btn-outline-danger">Smazat</button></a>
-            <a href="{% url 'trip_edit' trip.slug %}" ><button type="button" class="btn btn-outline-warning">Upravit</button></a>
+            <a href="{% url 'trip_delete' trip.slug %}" class="mr-2"><button type="button" class="btn btn-outline-danger icon delete">{% include "icons/delete.html" %}</button></a>
+            <a href="{% url 'trip_edit' trip.slug %}" ><button type="button" class="btn btn-outline-warning icon edit">{% include "icons/edit.html" %}</button></a>
         </div>
     </div>
 </div>

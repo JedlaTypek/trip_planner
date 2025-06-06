@@ -135,7 +135,6 @@ class Trip(models.Model):
     slug = models.SlugField(
         max_length=200,
         verbose_name="Slug",
-        unique=True,
         blank=True,
     )
     date = models.DateField(verbose_name="Datum výletu")

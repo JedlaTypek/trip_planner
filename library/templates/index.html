@@ -1,5 +1,28 @@
 {% extends 'base.html' %}
-
 {% block content %}
-{#  TODO - udělat homepage s návodem jak používat stránku  #}
+<div class="container">
+  <h1>Vítejte v aplikaci pro plánování návštěv zajímavých míst!</h1>
+
+  <p>
+    Tato webová aplikace slouží k přehlednému plánování a správě návštěv zajímavých míst,
+    například pro výlety po Dublinu nebo jiném městě. Každý uživatel si může zaznamenat
+    svá oblíbená místa, přiřadit k nim plánovaná data návštěvy a sledovat, co už navštívil.
+  </p>
+
+  <h2>Jak aplikace funguje?</h2>
+  <ul>
+    <li><strong>Prohlížení míst:</strong> Bez přihlášení si můžete prohlížet základní informace o zajímavých místech, pokud je jejich zobrazení veřejné.</li>
+    <li><strong>Přihlášení:</strong> Po přihlášení získáte přístup k celé funkcionalitě webu, která je přizpůsobena konkrétně vám.</li>
+    <li><strong>Vlastní seznamy míst:</strong> Přihlášení uživatelé si mohou přidávat nová místa, upravovat je a mazat.</li>
+    <li><strong>Plánování návštěv:</strong> Ke každému místu si můžete přidat plánovanou návštěvu s konkrétním datem. Všechny návštěvy jsou přehledně seřazeny podle data.</li>
+    <li><strong>Soukromí:</strong> Každý uživatel vidí pouze svá vlastní místa a své naplánované návštěvy. Vaše data nejsou sdílena s ostatními uživateli.</li>
+  </ul>
+
+  <h2>Přihlášení a registrace</h2>
+  <ul>
+    <li>Pokud už účet máte, <a href="{% url 'login' %}">přihlaste se</a>.</li>
+    <li>Noví uživatelé si mohou <a href="{% url 'register' %}">vytvořit účet</a> přes registrační formulář.</li>
+    <li>Po přihlášení se vám zpřístupní možnosti jako <em>přidání nového místa</em>, <em>plánování návštěv</em> a <em>úpravy vlastních dat</em>.</li>
+  </ul>
+</div>
 {% endblock %}

@@ -8,7 +8,7 @@
   {% if trip.places.all %}
     <ul>
       {% for place in trip.places.all %}
-        <li><a href="{% url 'place_detail' place.slug %}">{{ place.name }}</a></li>
+        <li><a href="{% url 'place_detail' place.slug %}">{{ place.name }}</a><br>{{ place.opening_hours }}</li>
       {% endfor %}
     </ul>
   {% else %}

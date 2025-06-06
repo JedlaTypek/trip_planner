@@ -54,3 +54,20 @@ main{
 .form-row .entryfee-price {
     flex: 1; /* aby se roztáhly rovnoměrně */
 }
+
+.icon svg{
+    height: 18px;
+    width: 18px;
+}
+
+.icon:hover svg{
+    fill: white;
+}
+
+.delete svg{
+    fill: var(--danger)
+}
+
+.edit svg{
+    fill: var(--warning)
+}

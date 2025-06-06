@@ -1,3 +1,4 @@
+{% load static %}
 <div class="card h-100 shadow-sm">
     {% if place.featured_image %}
         <img src="{{ place.featured_image.url }}" class="card-img-top place-card-img" alt="{{ place.name }}">
@@ -19,8 +20,10 @@
             {% if place.google_maps_url %}
                 <a href="{{ place.google_maps_url }}" target="_blank" class="mr-2"><button type="button" class="btn btn-outline-primary">Mapa</button></a>
             {% endif %}
-            <a href="{% url 'place_delete' place.slug %}?next={{ request.get_full_path }}" ><button type="button" class="btn btn-outline-danger">Smazat</button></a>
-            <a href="{% url 'place_edit' place.slug %}" ><button type="button" class="btn btn-outline-warning">Upravit</button></a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'place_delete' place.slug %}?next={{ request.get_full_path }}" class="mr-2"><button type="button" class="btn btn-outline-danger icon delete">{% include 'icons/delete.html' %}</button></a>
+                <a href="{% url 'place_edit' place.slug %}" ><button type="button" class="btn btn-outline-warning icon edit">{% include 'icons/edit.html' %}</button></a>
+            {% endif %}
         </div>
     </div>
 </div>
