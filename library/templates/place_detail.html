@@ -2,6 +2,12 @@
 {% load static %}
 
 {% block content %}
+    {% if user.is_authenticated %}
+        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+            <a href="{% url 'place_delete' place.slug %}?next={{ request.get_full_path }}" class="mr-2"><button type="button" class="btn btn-outline-danger icon delete">{% include 'icons/delete.html' %}</button></a>
+            <a href="{% url 'place_edit' place.slug %}"><button type="button" class="btn btn-outline-warning icon edit">{% include 'icons/edit.html' %}</button></a>
+        </div>
+    {% endif %}
     {% if place.tags.all %}
         <p class="mb-2">
             {% for tag in place.tags.all %}

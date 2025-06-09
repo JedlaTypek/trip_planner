@@ -33,6 +33,7 @@ class PlaceForm(forms.ModelForm):
         }
 
 
+
 class EntryFeeForm(forms.ModelForm):
     class Meta:
         model = EntryFee

@@ -46,13 +46,28 @@
   </div>
 
   <button type="button" class="btn btn-primary mb-3" id="add-entry-fee">Přidat kategorii</button>
+    <h3>Galerie obrázků</h3>
+<div class="mb-3">
+  <label for="id_gallery_images" class="form-label">Nahrajte více obrázků</label>
+  <input class="form-control" type="file" id="id_gallery_images" name="gallery_images" multiple>
+</div>
 
-  <h3>Galerie obrázků</h3>
-  <div class="mb-3">
-    <label for="id_gallery_images" class="form-label">Nahrajte více obrázků</label>
-    <input class="form-control" type="file" id="id_gallery_images" name="gallery_images" multiple>
+{% if existing_images %}
+  <h5>Stávající obrázky:</h5>
+  <div class="row g-2 mb-3">
+    {% for image in existing_images %}
+      <div class="col-md-3 text-center">
+        <img src="{{ image.image.url }}" alt="Obrázek" class="img-fluid rounded border" style="max-height: 150px;">
+        <div class="form-check mt-1">
+          <input class="form-check-input" type="checkbox" name="delete_image_ids" value="{{ image.id }}" id="delete_image_{{ image.id }}">
+          <label class="form-check-label small text-danger" for="delete_image_{{ image.id }}">
+            Smazat
+          </label>
+        </div>
+      </div>
+    {% endfor %}
   </div>
-
+{% endif %}
   <button type="submit" class="btn btn-success">Uložit</button>
 </form>
 

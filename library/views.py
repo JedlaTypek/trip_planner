@@ -82,18 +82,18 @@ def place_add(request):
     })
 
 
-def place_edit(request, slug): # TODO - nefunguje edit obrázků v galerii
+def place_edit(request, slug):
     place = get_object_or_404(Place, slug=slug)
 
     if request.method == 'POST':
         form = PlaceForm(request.POST, request.FILES, instance=place)
         formset = EntryFeeFormSet(request.POST, instance=place, prefix='entry_fees')
         files = request.FILES.getlist('gallery_images')
+        images_to_delete = request.POST.getlist('delete_image_ids')  # ID obrázků ke smazání
 
         if form.is_valid() and formset.is_valid():
             place = form.save()
 
-            # Uložení nových štítků (pokud máš ve formu pole new_tags)
             new_tags = form.cleaned_data.get('new_tags')
             if new_tags:
                 tag_names = [name.strip() for name in new_tags.split(',') if name.strip()]
@@ -103,22 +103,31 @@ def place_edit(request, slug): # TODO - nefunguje edit obrázků v galerii
 
             formset.save()
 
-            # Přidání nových obrázků k galerii
             for f in files:
                 PlaceImage.objects.create(place=place, image=f)
 
+            # Smazání označených obrázků
+            for img_id in images_to_delete:
+                try:
+                    img = PlaceImage.objects.get(id=img_id, place=place)
+                    img.delete()
+                except PlaceImage.DoesNotExist:
+                    pass
+
             return redirect('place_detail', slug=place.slug)
-        if not formset.is_valid():
-            print(formset.errors)
     else:
         form = PlaceForm(instance=place)
         formset = EntryFeeFormSet(instance=place)
 
+    existing_images = place.gallery.all()
+
     return render(request, 'place_form.html', {
         'form': form,
         'formset': formset,
-        'page_title': 'Úprava místa',  # můžeš si přidat, pokud chceš
+        'existing_images': existing_images,
+        'page_title': 'Úprava místa',
     })
+
 
 class PlaceDeleteView(DeleteView):
     model = Place

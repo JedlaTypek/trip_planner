@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="btn-group mb-3" role="group" aria-label="Basic example">
+    <a href="{% url 'trip_edit' trip.slug %}?next={{ request.get_full_path }}" class="mr-2"><button type="button" class="btn btn-outline-danger icon delete">{% include 'icons/delete.html' %}</button></a>
+    <a href="{% url 'trip_edit' trip.slug %}"><button type="button" class="btn btn-outline-warning icon edit">{% include 'icons/edit.html' %}</button></a>
+</div>
 <div class="container mt-4">
   <p><strong>Datum:</strong> {{ trip.date }}</p>
 
